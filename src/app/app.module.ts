@@ -22,6 +22,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 // Environment
 import { environment } from 'src/environments/environment';
 
+// NgRx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as fromReducers from './app.reducer';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +47,18 @@ import { environment } from 'src/environments/environment';
     FormsModule, // ACR. Para los formularios por template.
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot(fromReducers.reducers), // ACR. Se acostumbre usarlo con fromReducer por si existan mas que se llamen reducer.
+    // ACR. Esto es para la extension del chrome Redux Devtools Extension
+    // Instrumentation must be imported after importing StoreModule (config is optional)
+    StoreDevtoolsModule.instrument({
+      // ACR. maxAge Lo que dice es que maneje hasta 25 estados, osea mantenga siempre las ultimas 25 acciones
+      // desde que inicia la aplicacion
+      maxAge: 25, // Retains last 25 states.
+      // ACR. logOnly es para que cuando se encuentre en produccion la aplicacion se puedea impedir que los usuarios
+      // que tengan esta extension de Redux Devtools instalada puedan manipular los estados manualmente.
+      logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
