@@ -20,6 +20,7 @@ export class AuthService {
   // ACR. Se le hace un new Subscription() para que la variable tenga un valor en caso que no exista una suscripcion pero si
   // se haga la desuscripcion.
   private userSubscription: Subscription = new Subscription();
+  private usuario: User;
 
   constructor(private afAuth: AngularFireAuth, private afDB: AngularFirestore, private router: Router, private store: Store<AppState>) { }
 
@@ -36,9 +37,12 @@ export class AuthService {
 
             const accion = AuthActions.SET_USER({user: newUser});
             this.store.dispatch(accion);
+
+            this.usuario = newUser;
           }
         );
       } else { // ACR. Si fbUser viene nulo puede ser que cerro sesion o paso otra cosa, en ese caso hay que desuscribir.
+        this.usuario = null;
         this.userSubscription.unsubscribe();
       }
     });
@@ -110,5 +114,12 @@ export class AuthService {
   logout(): void {
     this.router.navigate(['/login']);
     this.afAuth.signOut();
+
+    this.store.dispatch(AuthActions.UNSET_USER());
+  }
+
+  getUsuario(): User {
+    // return this.usuario; ACR. Si se manda así, siempre se va a pasar por referencia, por eso se modifica abajo.
+    return {...this.usuario};
   }
 }

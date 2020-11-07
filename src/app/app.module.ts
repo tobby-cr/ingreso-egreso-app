@@ -12,7 +12,7 @@ import { DetalleComponent } from './ingreso-egreso/detalle/detalle.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -26,7 +26,10 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as fromReducers from './app.reducer';
+import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pipe';
 
+// Graficas
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -39,15 +42,18 @@ import * as fromReducers from './app.reducer';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    OrdenIngresoEgresoPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, // ACR. Para los formularios por template.
+    ReactiveFormsModule, // ACR. Para los formularios reactivos.
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    ChartsModule,
     StoreModule.forRoot(fromReducers.reducers), // ACR. Se acostumbre usarlo con fromReducer por si existan mas que se llamen reducer.
     // ACR. Esto es para la extension del chrome Redux Devtools Extension
     // Instrumentation must be imported after importing StoreModule (config is optional)

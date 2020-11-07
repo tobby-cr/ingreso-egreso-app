@@ -16,6 +16,11 @@ const authsReducer = createReducer(
         ... user // ACR. Se usa el "... user" para extraer todas las propiedades del parametro user y no tener que hacerlo de a una.
       }
     };
+  }),
+  on(AuthActions.UNSET_USER, (state) => {
+    return {
+      user: null
+    };
   })
 );
 
