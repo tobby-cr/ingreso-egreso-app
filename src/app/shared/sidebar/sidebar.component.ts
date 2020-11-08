@@ -15,7 +15,11 @@ import { IngresoEgresoService } from 'src/app/ingreso-egreso/ingreso-egreso.serv
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 
-  usuario: User;
+  usuario: User = {
+    nombre: '',
+    email: '',
+    uid: ''
+  };
 
   private subscription: Subscription = new Subscription();
 

@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { ChartType } from 'chart.js';
 import { Label, MultiDataSet } from 'ng2-charts';
 import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/app.reducer';
+// import { AppState } from 'src/app/app.reducer';
+import { IngresoEgresoAppState } from '../ingreso-egreso.reducer';
 import { IngresoEgreso } from '../ingreso-egreso.model';
 import { IngresoEgresoService } from '../ingreso-egreso.service';
 
@@ -29,7 +30,7 @@ export class EstadisticaComponent implements OnInit {
     { borderColor: ['#3bd949', '#dc3545'] }
   ];
 
-  constructor(private ingresoEgresoService: IngresoEgresoService, private store: Store<AppState>) { }
+  constructor(private ingresoEgresoService: IngresoEgresoService, private store: Store<IngresoEgresoAppState>) { }
 
   ngOnInit(): void {
     this.subscription = this.store.select('ingresoEgreso').subscribe(ingresoEgreso => {

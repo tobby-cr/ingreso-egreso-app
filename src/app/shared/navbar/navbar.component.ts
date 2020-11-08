@@ -13,7 +13,11 @@ import { User } from 'src/app/auth/user.model';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  usuario: User;
+  usuario: User = {
+    nombre: '',
+    email: '',
+    uid: ''
+  };
 
   private subscription: Subscription = new Subscription();
 
